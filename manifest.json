@@ -1,0 +1,32 @@
+{
+  "name": "MedKurds Medical Platform",
+  "short_name": "MedKurds",
+  "description": "The largest medical, nursing and pharmacy database in Kurdish.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0f172a",
+  "theme_color": "#0ea5e9",
+  "categories": ["medical", "education"],
+  "icons": [
+    {
+      "src": "img/medkurds-new-logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "img/medkurds-new-logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "img/medkurds-new-logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "maskable"
+    }
+  ]
+}

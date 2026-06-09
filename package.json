@@ -1,0 +1,22 @@
+{
+  "name": "medkurds-premium",
+  "version": "1.0.0",
+  "description": "Premium Nursing and Pharmacy Platform",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx browser-sync start --server --files \"*.html, css/*.css, js/*.js\" --port 3002",
+    "build": "echo 'Building static assets...' && exit 0",
+    "deploy": "npm run build && firebase deploy"
+  },
+  "keywords": [],
+  "author": "Antigravity",
+  "license": "ISC",
+  "devDependencies": {
+    "@capacitor/cli": "^8.3.4",
+    "browser-sync": "^2.29.3",
+    "copyfiles": "^2.4.1"
+  },
+  "dependencies": {
+    "@capacitor/local-notifications": "^8.2.0"
+  }
+}

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+    <title>MedKurds | پلاتفۆرمی پەرستاری و دەرمانسازی</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="گەورەترین بنکەی زانیاری پزیشکی بە زمانی کوردی. پلاتفۆرمی MedKurds تایبەت بە زانیاری پەرستاری، دەرمانسازی، فریاگوزاری، تاقیگە و چارەسەری نەخۆشییەکان.">
+    <meta name="keywords" content="پەرستاری, دەرمانسازی, پزیشکی, تەندروستی, کورد, کوردستان, MedKurds, دەرمان, نەخۆشی, فریاگوزاری, تاقیگە">
+    <meta name="author" content="هێدی سەرتیپ حسێن">
+    <meta property="og:title" content="MedKurds | پلاتفۆرمی پەرستاری و دەرمانسازی">
+    <meta property="og:description" content="گەورەترین بنکەی زانیاری پزیشکی بە زمانی کوردی.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://parstary-9abd3.web.app/">
+    <meta name="google-site-verification" content="8H0DG_j39K9t_yVJZ2tgp85XgRIfmTNg-qDunj-gmM4" />
+    <link rel="stylesheet" href="css/style.css?v=69">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&family=Vazirmatn:wght@100..900&family=Outfit:wght@300..800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="img/medkurds-logo.jpg" sizes="192x192" type="image/jpeg">
+    <link rel="icon" href="img/medkurds-logo-512.png" sizes="512x512" type="image/png">
+    <link rel="apple-touch-icon" href="img/medkurds-logo-512.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/medkurds-logo-512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/medkurds-logo-512.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="img/medkurds-logo-512.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0ea5e9">
+</head>
+
+<body class="theme-midnight">
+
+    <!-- ===== SPLASH SCREEN ===== -->
+    <div id="splash-screen">
+        <div class="splash-bg-orb splash-orb-1"></div>
+        <div class="splash-bg-orb splash-orb-2"></div>
+        <div class="splash-bg-orb splash-orb-3"></div>
+
+        <div class="splash-content">
+            <div class="splash-logo-ring">
+                <div class="splash-logo-circle">
+                    <img src="img/medkurds-logo.jpg" alt="MedKurds Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" />
+                </div>
+                <svg class="splash-ring-svg" viewBox="0 0 200 200">
+                    <defs>
+                        <linearGradient id="splashGradStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#38bdf8"/>
+                            <stop offset="50%" stop-color="#a78bfa"/>
+                            <stop offset="100%" stop-color="#34d399"/>
+                        </linearGradient>
+                    </defs>
+                    <circle class="splash-ring-track" cx="100" cy="100" r="90"/>
+                    <circle class="splash-ring-progress" cx="100" cy="100" r="90"/>
+                </svg>
+            </div>
+
+            <div class="splash-brand">
+                <h1 class="splash-title">MedKurds</h1>
+                <p class="splash-subtitle">پلاتفۆرمی پزیشکی کوردی</p>
+            </div>
+
+            <div class="splash-dots">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+    <!-- ===== END SPLASH SCREEN ===== -->
+
+    <!-- Animated Background Orbs -->
+    <div class="bg-animation">
+        <div class="bg-orb bg-orb-1"></div>
+        <div class="bg-orb bg-orb-2"></div>
+        <div class="bg-orb bg-orb-3"></div>
+    </div>
+    
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo" onclick="goHome()" style="cursor: pointer;">
+                    <i class="fas fa-stethoscope"></i>
+                    <span>MedKurds</span>
+                </div>
+                <button class="mobile-close" onclick="toggleSidebar()">&times;</button>
+            </div>
+
+            <nav class="nav-menu">
+                <div class="nav-group">
+                    <h4 data-key="medicalGroup">بەشە پزیشکییەکان</h4>
+                    <button class="nav-item active" onclick="goHome()">
+                        🏠 <span data-key="homeTitle">سەرەتا</span>
+                    </button>
+                    <button class="nav-item" onclick="selectCategory('drugs')">
+                        💊 <span data-key="pharmacyTitle">دەرمانسازی</span>
+                    </button>
+                    <button class="nav-item" onclick="selectCategory('nursing')">
+                        💉 <span data-key="nursingTitle">پەرستاری</span>
+                    </button>
+                    <button class="nav-item" onclick="selectCategory('emergency')">
+                        🚑 <span data-key="emergencyTitle">فریاگوزاری</span>
+                    </button>
+
+                    <button class="nav-item" onclick="selectCategory('lab')">
+                        🧪 <span data-key="lab">تاقیگە</span>
+                    </button>
+                    <button class="nav-item" onclick="selectCategory('vitamins')">
+                        🍎 <span data-key="vitaminsTitle">ڤیتامینەکان</span>
+                    </button>
+                    <button class="nav-item" onclick="selectCategory('equipment')">
+                        🩺 <span data-key="equipmentTitle">ئامێرەکان</span>
+                    </button>
+
+                    <button class="nav-item" onclick="selectCategory('nutrition')">
+                        🥗 <span data-key="nutritionTitle">خۆراکی تەندروست</span>
+                    </button>
+                    <button class="nav-item" onclick="selectCategory('skincare')">
+                        ✨ <span data-key="skincareTitle">تەندروستی پێست</span>
+                    </button>
+                    <button class="nav-item" onclick="selectCategory('herbal')">
+                        🌿 <span data-key="herbalTitle">دەرمانی گیایی</span>
+                    </button>
+                    <button class="nav-item" onclick="selectCategory('poisoning')">
+                        ☠️ <span data-key="poisoningTitle">ژەهراویبوون</span>
+                    </button>
+                    <button class="nav-item" onclick="selectCategory('diseases')">
+                        🤒 <span data-key="diseasesTitle">نەخۆشییە باوەکان</span>
+                    </button>
+                    <button class="nav-item" onclick="selectCategory('occupational')">
+                        💼 <span data-key="occupationalTitle">تەندروستی پیشەیی</span>
+                    </button>
+                    <button class="nav-item" onclick="selectCategory('maternal')">
+                        🤱 <span data-key="maternalTitle">دایک و منداڵ</span>
+                    </button>
+                    <button class="nav-item" onclick="selectCategory('bloodTypes')">
+                        🩸 <span data-key="bloodTitle">جۆرەکانی خوێن</span>
+                    </button>
+                    <button class="nav-item" onclick="selectCategory('dictionary')">
+                        📖 <span data-key="dictionaryTitle">فەرهەنگی پزیشکی</span>
+                    </button>
+                    <button class="nav-item" onclick="selectCategory('vaccinations')">
+                        💉 <span data-key="vaccinationsTitle">خشتەی کوتان</span>
+                    </button>
+
+                    <button class="nav-item" onclick="selectCategory('signlanguage')">
+                        🧏‍♂️ <span data-key="signlanguageTitle">زمانی ئاماژە</span>
+                    </button>
+                    <button class="nav-item" onclick="selectCategory('body')">
+                        🫀 <span data-key="anatomyTitle">بینەری ئەنادۆمی ٣D</span>
+                    </button>
+                    <button class="nav-item" onclick="selectCategory('pathology')">
+                        🔬 <span data-key="pathologyTitle">میکرۆسکۆپی پزیشکی</span>
+                    </button>
+                    <button class="nav-item" style="background: linear-gradient(135deg, #ef4444, #f59e0b); border: none;" onclick="openSimulator()">
+                        🚑 <span style="color: white; font-weight: bold;" data-key="simulatorTitle">ژووری فریاکەوتن</span>
+                    </button>
+                </div>
+
+                <div class="nav-group">
+                    <h4 data-key="designGroup">دیزاین و ڕێکخستن</h4>
+                    <button class="nav-item" onclick="selectCategory('favorites')">
+                        ❤️ <span data-key="favoritesTitle">دڵخوازەکان</span>
+                    </button>
+                    <button class="nav-item" id="notification-btn" onclick="toggleNotifications()">
+                        🔔 <span data-key="notificationsTitle">ئاگادارکردنەوەی ڕۆژانە</span>
+                    </button>
+                    <div class="lang-switch">
+                        <button onclick="setLanguage('ku')" class="active">KU</button>
+                        <button onclick="setLanguage('ar')">AR</button>
+                        <button onclick="setLanguage('en')">EN</button>
+                    </div>
+                    <div class="theme-selector">
+                        <div class="theme-dot midnight" onclick="setTheme('midnight')" title="Midnight"></div>
+                        <div class="theme-dot teal" onclick="setTheme('teal')" title="Teal"></div>
+                        <div class="theme-dot gold" onclick="setTheme('gold')" title="Gold"></div>
+                        <div class="theme-dot purple" onclick="setTheme('purple')" title="Purple"></div>
+                        <div class="theme-dot pink" onclick="setTheme('pink')" title="Pink"></div>
+                        <div class="theme-dot ocean" onclick="setTheme('ocean')" title="Ocean"></div>
+                        <div class="theme-dot sunset" onclick="setTheme('sunset')" title="Sunset"></div>
+                        <div class="theme-dot forest" onclick="setTheme('forest')" title="Forest"></div>
+                        <div class="theme-dot fire" onclick="setTheme('fire')" title="Fire"></div>
+                        <div class="theme-dot royal" onclick="setTheme('royal')" title="Royal"></div>
+                        <div class="theme-dot black" onclick="setTheme('black')" title="ڕەش (Black)"></div>
+                        <div class="theme-dot maroon" onclick="setTheme('maroon')" title="سووری جەرگی (Maroon)"></div>
+                    </div>
+
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>&copy; 2024 MedKurds</p>
+                <div id="user-counter-display" style="display: none; font-size: 0.85rem; margin-top: 10px; color: var(--primary); padding: 6px 12px; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); text-align: center; justify-content: center; align-items: center; gap: 5px;">
+                    <i class="fas fa-users"></i> <span data-key="userCountText">بەکارھێنەران</span>: <strong id="user-count-num" style="color: #fff; margin-right: 3px;">...</strong>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <button class="mobile-toggle" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo-top" onclick="goHome()"
+                    style="cursor: pointer; display: flex; align-items: center; gap: 10px; font-weight: 800; color: var(--primary);">
+                    <i class="fas fa-stethoscope"></i>
+                    <span>MedKurds</span>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="گەڕان بۆ زانیاری..." oninput="handleSearch()">
+                </div>
+                <div class="header-actions" style="display: flex; gap: 10px; align-items: center;">
+                    <button class="icon-btn" onclick="showInstallGuideModal()" title="داگرتنی بەرنامە (Download App)">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="icon-btn" onclick="const i = this.querySelector('i'); i.classList.add('fa-spin'); i.style.animationDuration = '0.5s'; setTimeout(() => window.location.reload(true), 500)" title="ڕیفرێش (Refresh)">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div id="content-area">
+                <div class="welcome-screen" id="welcome-screen">
+                    <div class="hero-3d-wrapper">
+                        <h1 data-key="heroTitle">بەخێرهاتی بۆ MedKurds</h1>
+                        <i class="fas fa-staff-snake snake-orbit-anim"></i>
+                    </div>
+                    <p data-key="heroSub">گەورەترین بنکەی زانیاری پزیشکی بە زمانی کوردی</p>
+                    <button class="intro-btn" onclick="showIntroduction()"
+                        style="margin-top: 2rem; padding: 15px 40px; background: rgba(255,255,255,0.1); border: 1px solid var(--primary); color: #fff; border-radius: 50px; font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 10px;">
+                        📖 <span data-key="introduction">پێشەکی</span>
+                    </button>
+                    <div class="daily-tip-box" style="display: flex;">
+                        <i class="fas fa-lightbulb"></i>
+                        <p id="daily-tip-text">خەریکی بارکردنی ئامۆژگاری...</p>
+                    </div>
+
+                    <!-- AI Bot Button -->
+                    <button class="ai-home-btn" onclick="openBot()" style="margin-top: 25px; width: 100%; max-width: 280px; padding: 12px 15px; background: var(--primary); border: none; color: #fff; border-radius: 20px; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); transition: transform 0.3s ease; margin-left: auto; margin-right: auto;">
+                        <i class="fas fa-robot" style="font-size: 1.4rem;"></i>
+                        <span style="font-weight: bold; letter-spacing: 0.5px;" data-key="aiBotBtn">دکتۆری زیرەک (AI)</span>
+                    </button>
+
+
+
+                </div>
+
+                <!-- 3D Anatomy Viewer (shown when 'body' category is selected) -->
+                <div id="body-3d-view" style="display: none;">
+                    <div style="width:100%; max-width:1100px; text-align:center; padding: 10px 0 8px;">
+                        <h2 style="font-size:1.5rem; font-weight:800; background:linear-gradient(90deg,#38bdf8,#a78bfa,#34d399); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:4px;">🫀 <span data-key="anatomyTitle">بینەری ئەنادۆمی ٣D</span></h2>
+                        <p id="anatomy-hint" data-key="anatomyHint">بیگرە و ببات · زووم بکە · کلیک بکە بۆ زانیاری ئەندامەکان</p>
+                    </div>
+                    <div class="anatomy-dual">
+                        <!-- Image panel injected by JS -->
+                        <div id="body-3d-container">
+                            <div id="body-3d-canvas"></div>
+                            <div class="explode-indicator" id="explode-indicator" data-key="anatomyExplode">📤 بەشەکان جیا کراونەتەوە</div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                <div class="grid mobile-view" id="main-grid">
+                    <!-- Cards will be injected here -->
+                </div>
+            </div>
+
+            <!-- AI Response Area -->
+            <div id="ai-response-area" style="display: none;">
+                <div class="ai-card">
+                    <div class="ai-card-header">
+                        <span><i class="fas fa-brain"></i> AI Medical Analysis</span>
+                        <button onclick="hideAI()">&times;</button>
+                    </div>
+                    <div id="ai-response-text"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Details Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- AI Input Modal -->
+    <div class="modal-overlay" id="ai-modal" style="z-index: 3000;">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="close-modal" onclick="closeAIModal()">&times;</span>
+            <h3 style="color: var(--primary); margin-top: 0; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-robot"></i> <span data-key="aiModalTitle">پزیشکی زیرەک (AI)</span>
+            </h3>
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <p style="color: #cbd5e1; font-size: 0.95rem; margin: 0;" data-key="aiModalDesc">هەر پرسیارێکی پزیشکیت هەیە لێرە بینوسە و دەستبەجێ وەڵام وەربگرە.</p>
+                <textarea id="ai-modal-input" rows="4" placeholder="بۆ نموونە: چارەسەری سەرئێشە چییە؟" style="width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: #fff; font-family: inherit; font-size: 1rem; resize: vertical;"></textarea>
+                <button onclick="submitAIModal()" style="padding: 12px; background: var(--primary); color: #fff; border: none; border-radius: 50px; font-size: 1.1rem; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; font-weight: bold;">
+                    <i class="fas fa-paper-plane"></i> <span data-key="aiSendBtn">ناردنی پرسیار</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Modal -->
+    <div class="modal-overlay" id="map-modal">
+        <div class="modal-content" style="padding:0; overflow:hidden; display:flex; flex-direction:column; height: 80vh; max-height: 600px;">
+            <div style="padding: 15px; display: flex; justify-content: space-between; align-items: center; background: var(--nav-bg); border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <h3 id="map-modal-title" style="margin: 0; color: #fff; font-size: 1.2rem;">نەخشە</h3>
+                <span style="font-size: 1.8rem; cursor: pointer; color: #f87171;" onclick="closeMapModal()">&times;</span>
+            </div>
+            <div id="map-container" style="flex: 1; width: 100%; background: #eee;"></div>
+        </div>
+    </div>
+
+
+
+    <div class="modal-overlay" id="bot-modal">
+        <div class="modal-content bot-modal-content">
+            <div class="bot-header">
+                <h3>🩺 <span data-key="symptomCheckerTitle">دکتۆری زیرەک (Symptom Checker)</span></h3>
+                <span class="close" onclick="closeBot()">&times;</span>
+            </div>
+            <div class="bot-chat-container" id="bot-chat-container">
+                <!-- Chat messages will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Simulator Modal -->
+    <div class="modal-overlay" id="sim-modal">
+        <div class="modal-content sim-modal-content">
+            <div class="sim-header">
+                <h3>🚑 <span data-key="simulatorTitle">سیمولەیتەری فریاگوزاری</span></h3>
+                <span class="close" onclick="closeSimulator()">&times;</span>
+            </div>
+            
+            <div class="sim-monitor">
+                <div class="sim-vitals">
+                    <div class="vital-box hr-box">
+                        <span class="vital-label" data-key="simHrLabel">HR (لێدانی دڵ)</span>
+                        <span class="vital-value" id="sim-hr">--</span>
+                    </div>
+                    <div class="vital-box bp-box">
+                        <span class="vital-label" data-key="simBpLabel">BP (پەستانی خوێن)</span>
+                        <span class="vital-value" id="sim-bp">--/--</span>
+                    </div>
+                    <div class="vital-box spo2-box">
+                        <span class="vital-label" data-key="simSpo2Label">SpO2 (ئۆکسجین)</span>
+                        <span class="vital-value" id="sim-spo2">--%</span>
+                    </div>
+                </div>
+                
+                <div class="sim-health-bar-container">
+                    <span style="font-size: 0.9rem; color: #fff; margin-bottom: 5px; display: block;" data-key="simPatientStatus">باری تەندروستی نەخۆش:</span>
+                    <div class="sim-health-bar">
+                        <div class="sim-health-fill" id="sim-health-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sim-body">
+                <h4 id="sim-title" style="color: #fff; margin-top: 0;"></h4>
+                <p id="sim-desc" style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5;"></p>
+                
+                <div id="sim-choices" class="sim-choices-container">
+                    <!-- Choices injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <div class="creator-info">
+            <p data-key="creator">درووستکەر: هێدی سەرتیپ حسێن</p>
+            <div class="social-links">
+                <a href="https://wa.me/9647518337828" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://t.me/hedi_s72" target="_blank"><i class="fab fa-telegram"></i></a>
+                <a href="https://instagram.com/hedi_s72" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+            <button onclick="showFeedbackForm()"
+                style="margin-top: 20px; padding: 10px 25px; background: rgba(255,255,255,0.05); border: 1px solid var(--primary); color: #fff; border-radius: 50px; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px;">
+                <i class="fas fa-envelope-open-text"></i> فیدباک بنێرە
+            </button>
+        </div>
+    </footer>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+
+    <!-- Data Modules -->
+    <script src="js/data/drugs.js"></script>
+    <script src="js/data/nursing.js"></script>
+    <script src="js/data/emergency.js"></script>
+    <script src="js/data/body.js"></script>
+    <script src="js/data/lab.js"></script>
+    <script src="js/data/others.js?v=69"></script>
+    <script src="js/data/nutrition.js"></script>
+    <script src="js/data/dictionary.js"></script>
+    <script src="js/data/maternal.js"></script>
+    <script src="js/data/herbal.js?v=112"></script>
+    <script src="js/data/poisoning.js"></script>
+    <script src="js/data/diseases.js"></script>
+    <script src="js/data/occupational.js"></script>
+    <script src="js/data/signlanguage.js?v=112"></script>
+    <script src="js/data/blood_types.js"></script>
+    <!-- App Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/3d-body.js"></script>
+    <script src="js/data/pathology.js?v=113"></script>
+    <script src="js/data/vaccinations.js?v=112"></script>
+    <script src="js/data.js?v=112"></script>
+    <script src="js/bot.js"></script>
+    <script src="js/data/scenarios.js?v=112"></script>
+    <script src="js/simulator.js?v=112"></script>
+    <script src="js/app.js?v=112"></script>
+</body>
+
+</html>
