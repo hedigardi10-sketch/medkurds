@@ -2,11 +2,12 @@
 const firebaseConfig = {
   apiKey: "AIzaSyDUuAktxmXzwqd-c1HJSsswyhCkQz2ZSx4",
   authDomain: "parstary-9abd3.firebaseapp.com",
+  databaseURL: "https://parstary-9abd3-default-rtdb.firebaseio.com",
   projectId: "parstary-9abd3",
   storageBucket: "parstary-9abd3.firebasestorage.app",
   messagingSenderId: "521250017077",
-  appId: "1:521250017077:web:9dc6bbc6a04e54c000867c",
-  measurementId: "G-SVLFL18SXK"
+  appId: "1:521250017077:web:a0e361b97a53c75d00867c",
+  measurementId: "G-6KFZT6V37R"
 };
 
 // Initialize Firebase
@@ -15,7 +16,15 @@ firebase.initializeApp(firebaseConfig);
 // Initialize Firestore (Database)
 const db = firebase.firestore();
 
-// Offline persistence has been removed as requested.
+// Enable Offline Persistence
+db.enablePersistence()
+  .catch((err) => {
+    if (err.code == 'failed-precondition') {
+      console.warn('Multiple tabs open, persistence can only be enabled in one tab at a a time.');
+    } else if (err.code == 'unimplemented') {
+      console.warn('The current browser does not support all of the features required to enable persistence');
+    }
+  });
 
 console.log("Firebase is connected successfully with your real keys!");
 

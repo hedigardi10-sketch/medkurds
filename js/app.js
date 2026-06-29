@@ -68,7 +68,6 @@ function initApp() {
     // Add realistic snake
     create3DSnake();
     renderDailyTip();
-    
     // Initial Render
     goHome();
     
@@ -182,7 +181,7 @@ function updateCategoryCounts() {
 
 function loadFromFirestore() {
     if (typeof db === 'undefined' || !db) return;
-    const collections = ['drugs', 'nursing', 'emergency', 'nutrition', 'skincare', 'dictionary', 'body', 'lab', 'vitamins', 'equipment', 'maternal', 'hotlines', 'herbal', 'poisoning', 'diseases', 'occupational', 'signlanguage', 'pathology', 'bloodTypes', 'diet', 'scenarios', 'vaccinations'];
+    const collections = ['drugs', 'nursing', 'emergency', 'nutrition', 'skincare', 'dictionary', 'body', 'lab', 'vitamins', 'equipment', 'maternal', 'hotlines', 'herbal', 'poisoning', 'diseases', 'occupational', 'signlanguage', 'pathology', 'bloodTypes', 'diet', 'scenarios', 'vaccinations', 'videos'];
     
     collections.forEach(col => {
         db.collection(col).onSnapshot(snapshot => {
@@ -355,6 +354,19 @@ function setLanguage(lang) {
     document.querySelectorAll('.lang-switch button').forEach(btn => {
         btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
     });
+
+    const videosBtn = document.getElementById('videos-nav-btn');
+    if (videosBtn) {
+        if (lang === 'ku') {
+            videosBtn.style.display = 'block';
+        } else {
+            videosBtn.style.display = 'none';
+            if (currentCategory === 'videos') {
+                goHome();
+                return; // goHome will call renderCategory
+            }
+        }
+    }
 
     updateTranslations();
     renderDailyTip();
@@ -540,10 +552,17 @@ function showDetail(item) {
     const body = document.getElementById('modal-body');
     const data = item[currentLang] || {};
     
+    // Make modal visible FIRST to ensure iframes render properly
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    
     body.innerHTML = `
         <div class="modal-body-content">
             <h2>${data.title || data.name || item.name}</h2>
-            ${item.img ? `<img src="${item.img}" style="width:100%; max-width: ${currentCategory === 'pathology' ? '300px' : '100%'}; margin: 0 auto 20px auto; display: block; border-radius:${currentCategory === 'pathology' ? '50%' : '15px'}; aspect-ratio: ${currentCategory === 'pathology' ? '1/1' : 'auto'}; object-fit: cover; ${currentCategory === 'pathology' ? 'border: 8px solid #111; box-shadow: 0 0 25px rgba(0,0,0,0.9);' : ''}">` : ''}
+            ${item.icon ? `<div style="font-size: 5rem; text-align: center; margin: 20px 0; text-shadow: 0 10px 20px rgba(0,0,0,0.3); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">${item.icon}</div>` : ''}
+            ${item.img && !item.video ? `<img src="${item.img}" style="width:100%; max-width: ${currentCategory === 'pathology' ? '300px' : '100%'}; margin: 0 auto 20px auto; display: block; border-radius:${currentCategory === 'pathology' ? '50%' : '15px'}; aspect-ratio: ${currentCategory === 'pathology' ? '1/1' : 'auto'}; object-fit: cover; ${currentCategory === 'pathology' ? 'border: 8px solid #111; box-shadow: 0 0 25px rgba(0,0,0,0.9);' : ''}">` : ''}
+            
+            ${item.video ? `<div class="video-container" style="position: relative; padding-bottom: ${item.video.includes('instagram.com') ? '135%' : '56.25%'}; height: 0; overflow: hidden; max-width: 100%; border-radius: 15px; margin-bottom: 20px; background: #000;"><iframe src="${item.video}" style="position: absolute; ${item.video.includes('instagram.com') ? 'top: -65px; left: -2px; width: calc(100% + 4px); height: calc(100% + 240px);' : 'top: 0; left: 0; width: 100%; height: 100%;'} border:0;" allowfullscreen></iframe></div>` : ''}
             
             <div class="modal-text-section">
                 <p>${data.desc || ''}</p>
@@ -560,7 +579,18 @@ function showDetail(item) {
             ${data.symptoms ? `<div class="detail-box"><strong><i class="fas fa-thermometer-half"></i> ${medicalData.translations[currentLang].symptoms}:</strong> <ul>${data.symptoms.map(s => `<li>${s}</li>`).join('')}</ul></div>` : ''}
             ${data.treatment ? `<div class="detail-box"><strong><i class="fas fa-briefcase-medical"></i> ${medicalData.translations[currentLang].treatment}:</strong> <ul>${data.treatment.map(t => `<li>${t}</li>`).join('')}</ul></div>` : ''}
             ${data.advice ? `<div class="detail-box info-box"><strong><i class="fas fa-lightbulb"></i> ${medicalData.translations[currentLang].advice}:</strong> <p>${data.advice}</p></div>` : ''}
+            ${data.caption ? `<div class="detail-box" style="background: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.2); border-${currentLang === 'en' ? 'left' : 'right'}: 4px solid #0ea5e9; padding: 20px; border-radius: 15px; margin-top: 20px; margin-bottom: 20px;">
+                <h3 style="color: #0ea5e9; margin: 0 0 15px 0; display: flex; align-items: center; gap: 8px; font-size: 1.3rem;">
+                    <i class="fas fa-closed-captioning"></i>
+                    ${currentLang === 'ku' ? 'کاپشنی ڤیدیۆ' : (currentLang === 'ar' ? 'وصف الفيديو' : 'Video Caption')}
+                </h3>
+                <div style="white-space: pre-wrap; font-size: 1.15rem; line-height: 1.8; color: #e2e8f0;">${data.caption}</div>
+            </div>` : ''}
             ${data.use ? `<div class="detail-box"><strong><i class="fas fa-tools"></i> ${medicalData.translations[currentLang].useTitle || "Usage"}:</strong> <ul>${data.use.map(u => `<li>${u}</li>`).join('')}</ul></div>` : ''}
+            
+            ${data.type ? `<div class="detail-box primary-box"><strong><i class="fas fa-microscope"></i> ${currentLang === 'ku' ? 'جۆر' : (currentLang === 'ar' ? 'النوع' : 'Type')}:</strong> <p>${data.type}</p></div>` : ''}
+            ${data.diseases ? `<div class="detail-box warning-box"><strong><i class="fas fa-biohazard"></i> ${currentLang === 'ku' ? 'نەخۆشییەکان' : (currentLang === 'ar' ? 'الأمراض' : 'Diseases')}:</strong> <p>${data.diseases}</p></div>` : ''}
+            ${data.antibiotics ? `<div class="detail-box" style="background: rgba(74, 222, 128, 0.1); border-${currentLang === 'en' ? 'left' : 'right'}: 4px solid #4ade80;"><strong><i class="fas fa-pills" style="color: #4ade80;"></i> <span style="color: #4ade80;">${currentLang === 'ku' ? 'ئەنتیبایۆتیک (چارەسەر)' : (currentLang === 'ar' ? 'المضادات الحيوية' : 'Antibiotics')}</span>:</strong> <p>${data.antibiotics}</p></div>` : ''}
 
             ${(() => {
                 if (data.steps && data.steps.length > 0) {
@@ -611,14 +641,15 @@ function showDetail(item) {
             </div>` : ''}
         </div>
     `;
-    
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
     document.getElementById('modal').style.display = 'none';
     document.body.style.overflow = 'auto';
+    const modalBody = document.getElementById('modal-body');
+    if (modalBody) {
+        modalBody.innerHTML = '';
+    }
 }
 
 function showAboutMe() {
@@ -630,7 +661,8 @@ function showAboutMe() {
     const modalBody = document.getElementById('modal-body');
     
     const title = (medicalData.translations[currentLang] && medicalData.translations[currentLang].aboutMeTitle) || "دەربارەی من";
-    const creatorText = (medicalData.translations[currentLang] && medicalData.translations[currentLang].creator) || "درووستکەر: هێدی سەرتیپ حسێن";
+    const creatorName = (medicalData.translations[currentLang] && medicalData.translations[currentLang].creatorName) || "هێدی سەرتیپ حسێن";
+    const creatorRole = (medicalData.translations[currentLang] && medicalData.translations[currentLang].creatorRole) || "گەشەپێدەری ئەپڵیکەیشن";
     
     modalBody.innerHTML = `
         <h2 style="text-align: center; color: var(--primary); margin-bottom: 20px; font-weight: 800;">
@@ -640,8 +672,8 @@ function showAboutMe() {
         
         <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; text-align: center;">
             <img src="img/about-me.jpg" alt="MedKurds Developer" style="width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--primary); margin-bottom: 15px; box-shadow: 0 0 15px var(--primary); object-fit: cover;">
-            <h3 style="color: #fff; font-size: 1.3rem; margin: 0 0 5px 0;">${creatorText.split(':')[1] ? creatorText.split(':')[1].trim() : 'هێدی سەرتیپ حسێن'}</h3>
-            <p style="color: #a78bfa; font-weight: 600; margin: 0; font-size: 1rem;">گەشەپێدەری ئەپڵیکەیشن</p>
+            <h3 style="color: #fff; font-size: 1.3rem; margin: 0 0 5px 0;">${creatorName}</h3>
+            <p style="color: #a78bfa; font-weight: 600; margin: 0; font-size: 1rem;">${creatorRole}</p>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 15px;">
@@ -739,63 +771,12 @@ function showToast(message) {
 }
 
 function getFavoritesData() {
-    const categories = ['drugs', 'nursing', 'emergency', 'body', 'lab', 'vitamins', 'equipment', 'nutrition', 'diet', 'skincare', 'maternal', 'herbal', 'poisoning', 'dictionary', 'diseases', 'occupational', 'signlanguage', 'pathology', 'bloodTypes'];
+    const categories = ['drugs', 'nursing', 'emergency', 'body', 'lab', 'vitamins', 'equipment', 'nutrition', 'diet', 'skincare', 'maternal', 'herbal', 'poisoning', 'dictionary', 'diseases', 'occupational', 'signlanguage', 'pathology', 'bloodTypes', 'videos'];
     let allData = [];
     categories.forEach(cat => {
         if (medicalData[cat]) allData = allData.concat(medicalData[cat]);
     });
     return allData.filter(item => favorites.some(f => String(f.id) === String(item.id)));
-}
-
-function renderDailyTip() {
-    const tipText = document.getElementById('daily-tip-text');
-    if (!tipText || !medicalData.dailyTips || medicalData.dailyTips.length === 0) return;
-    
-    const tips = medicalData.dailyTips;
-    
-    // Get local date string (e.g. "2026-5-19") to respect local calendar timezone
-    const localDate = new Date();
-    const todayStr = `${localDate.getFullYear()}-${localDate.getMonth() + 1}-${localDate.getDate()}`;
-    
-    let savedDate = localStorage.getItem('medkurds_tip_date');
-    let savedIndex = localStorage.getItem('medkurds_tip_index');
-    let shownIndices = JSON.parse(localStorage.getItem('medkurds_shown_tips') || '[]');
-    
-    let activeIndex;
-    
-    // If it's a new day, or there's no saved tip, or the saved index is invalid
-    if (savedDate !== todayStr || savedIndex === null || Number(savedIndex) >= tips.length) {
-        // Filter out already shown tips to prevent repetition
-        let availableIndices = tips.map((_, i) => i).filter(i => !shownIndices.includes(i));
-        
-        // If all tips have been shown once, reset the history
-        if (availableIndices.length === 0) {
-            shownIndices = [];
-            availableIndices = tips.map((_, i) => i);
-        }
-        
-        // Select a random index from the available ones
-        const randomIndex = Math.floor(Math.random() * availableIndices.length);
-        activeIndex = availableIndices[randomIndex];
-        
-        // Save the selection and update history
-        shownIndices.push(activeIndex);
-        localStorage.setItem('medkurds_tip_date', todayStr);
-        localStorage.setItem('medkurds_tip_index', activeIndex.toString());
-        localStorage.setItem('medkurds_shown_tips', JSON.stringify(shownIndices));
-    } else {
-        activeIndex = Number(savedIndex);
-    }
-    
-    const tip = tips[activeIndex];
-    
-    if (tip && tip[currentLang]) {
-        tipText.textContent = tip[currentLang];
-    } else if (Array.isArray(tips)) {
-        // Fallback for simple array structure
-        const simpleTip = tips[activeIndex];
-        tipText.textContent = typeof simpleTip === 'string' ? simpleTip : (simpleTip[currentLang] || '');
-    }
 }
 
 
@@ -1108,6 +1089,80 @@ function closeMapModal() {
 }
 
 
+// --- Light/Dark Mode Logic ---
+let isLightMode = localStorage.getItem('medkurds_lightmode') === 'true';
+
+function applyThemeMode() {
+    const btnIcon = document.querySelector('#theme-toggle-btn i');
+    if (isLightMode) {
+        document.body.classList.add('light-mode');
+        if (btnIcon) {
+            btnIcon.className = 'fas fa-moon';
+        }
+    } else {
+        document.body.classList.remove('light-mode');
+        if (btnIcon) {
+            btnIcon.className = 'fas fa-sun';
+        }
+    }
+}
+
+function toggleThemeMode() {
+    isLightMode = !isLightMode;
+    localStorage.setItem('medkurds_lightmode', isLightMode);
+    applyThemeMode();
+}
+
+function renderDailyTip() {
+    const tipText = document.getElementById('daily-tip-text');
+    if (!tipText || !medicalData.dailyTips || medicalData.dailyTips.length === 0) return;
+    
+    const tips = medicalData.dailyTips;
+    
+    // Get local date string (e.g. "2026-5-19") to respect local calendar timezone
+    const localDate = new Date();
+    const todayStr = `${localDate.getFullYear()}-${localDate.getMonth() + 1}-${localDate.getDate()}`;
+    
+    let savedDate = localStorage.getItem('medkurds_tip_date');
+    let savedIndex = localStorage.getItem('medkurds_tip_index');
+    let shownIndices = JSON.parse(localStorage.getItem('medkurds_shown_tips') || '[]');
+    
+    let activeIndex;
+    
+    // If it's a new day, or there's no saved tip, or the saved index is invalid
+    if (savedDate !== todayStr || savedIndex === null || Number(savedIndex) >= tips.length) {
+        // Filter out already shown tips to prevent repetition
+        let availableIndices = tips.map((_, i) => i).filter(i => !shownIndices.includes(i));
+        
+        // If all tips have been shown once, reset the history
+        if (availableIndices.length === 0) {
+            shownIndices = [];
+            availableIndices = tips.map((_, i) => i);
+        }
+        
+        // Select a random index from the available ones
+        const randomIndex = Math.floor(Math.random() * availableIndices.length);
+        activeIndex = availableIndices[randomIndex];
+        
+        // Save the selection and update history
+        shownIndices.push(activeIndex);
+        localStorage.setItem('medkurds_tip_date', todayStr);
+        localStorage.setItem('medkurds_tip_index', activeIndex.toString());
+        localStorage.setItem('medkurds_shown_tips', JSON.stringify(shownIndices));
+    } else {
+        activeIndex = Number(savedIndex);
+    }
+    
+    const tip = tips[activeIndex];
+    
+    if (tip && tip[currentLang]) {
+        tipText.textContent = tip[currentLang];
+    } else if (Array.isArray(tips)) {
+        // Fallback for simple array structure
+        const simpleTip = tips[activeIndex];
+        tipText.textContent = typeof simpleTip === 'string' ? simpleTip : (simpleTip[currentLang] || '');
+    }
+}
 
 async function toggleNotifications() {
     const btn = document.getElementById('notification-btn');
@@ -1179,28 +1234,3 @@ async function toggleNotifications() {
         }
     }
 }
-
-// --- Light/Dark Mode Logic ---
-let isLightMode = localStorage.getItem('medkurds_lightmode') === 'true';
-
-function applyThemeMode() {
-    const btnIcon = document.querySelector('#theme-toggle-btn i');
-    if (isLightMode) {
-        document.body.classList.add('light-mode');
-        if (btnIcon) {
-            btnIcon.className = 'fas fa-moon';
-        }
-    } else {
-        document.body.classList.remove('light-mode');
-        if (btnIcon) {
-            btnIcon.className = 'fas fa-sun';
-        }
-    }
-}
-
-function toggleThemeMode() {
-    isLightMode = !isLightMode;
-    localStorage.setItem('medkurds_lightmode', isLightMode);
-    applyThemeMode();
-}
-

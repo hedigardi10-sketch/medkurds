@@ -186,6 +186,9 @@
             <nav class="nav-menu">
 
                 <div class="nav-group">
+                    <button id="videos-nav-btn" class="nav-item" onclick="selectCategory('videos')" style="margin-bottom: 15px; background: rgba(14, 165, 233, 0.15); border: 1px solid rgba(14, 165, 233, 0.3);">
+                        ▶️ <span data-key="videosTitle">ڤیدیۆ پزیشکییەکان</span>
+                    </button>
 
                     <h4 data-key="medicalGroup">بەشە پزیشکییەکان</h4>
 
@@ -283,6 +286,12 @@
 
                     </button>
 
+                    <button class="nav-item" onclick="selectCategory('womens')">
+
+                        👩‍⚕️ <span data-key="womensTitle">نەخۆشییەکانی ئافرەتان</span>
+
+                    </button>
+
                     <button class="nav-item" onclick="selectCategory('bloodTypes')">
 
                         🩸 <span data-key="bloodTitle">جۆرەکانی خوێن</span>
@@ -298,6 +307,12 @@
                     <button class="nav-item" onclick="selectCategory('vaccinations')">
 
                         💉 <span data-key="vaccinationsTitle">خشتەی کوتان</span>
+
+                    </button>
+
+                    <button class="nav-item" onclick="selectCategory('microbiology')">
+
+                        🦠 <span data-key="microbiologyTitle">مایکرۆبایۆلۆجی</span>
 
                     </button>
 
@@ -336,15 +351,11 @@
                     <h4 data-key="designGroup">دیزاین و ڕێکخستن</h4>
 
                     <button class="nav-item" onclick="selectCategory('favorites')">
-
                         ❤️ <span data-key="favoritesTitle">دڵخوازەکان</span>
-
                     </button>
 
-                    <button class="nav-item" id="notification-btn" onclick="toggleNotifications()">
-
+                    <button class="nav-item" id="notification-btn" onclick="toggleNotifications()" style="display: none;">
                         🔔 <span data-key="notificationsTitle">ئاگادارکردنەوەی ڕۆژانە</span>
-
                     </button>
 
                     <button class="nav-item" onclick="showAboutMe()">
@@ -478,19 +489,13 @@
                     <p data-key="heroSub">گەورەترین بنکەی زانیاری پزیشکی بە زمانی کوردی</p>
 
                     <button class="intro-btn" onclick="showIntroduction()"
-
                         style="margin-top: 2rem; padding: 15px 40px; background: rgba(255,255,255,0.1); border: 1px solid var(--primary); color: #fff; border-radius: 50px; font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 10px;">
-
                         📖 <span data-key="introduction">پێشەکی</span>
-
                     </button>
 
                     <div class="daily-tip-box" style="display: flex;">
-
                         <i class="fas fa-lightbulb"></i>
-
                         <p id="daily-tip-text">خەریکی بارکردنی ئامۆژگاری...</p>
-
                     </div>
 
 
@@ -825,6 +830,8 @@
 
     <script defer src="js/data/maternal.js?v=207"></script>
 
+    <script defer src="js/data/womens.js?v=207"></script>
+
     <script defer src="js/data/herbal.js?v=207"></script>
 
     <script defer src="js/data/poisoning.js?v=207"></script>
@@ -846,6 +853,10 @@
     <script defer src="js/data/pathology.js?v=207"></script>
 
     <script defer src="js/data/vaccinations.js?v=207"></script>
+
+    <script defer src="js/data/videos.js?v=207"></script>
+
+    <script defer src="js/data/microbiology.js?v=208"></script>
 
     <script defer src="js/data.js?v=207"></script>
 

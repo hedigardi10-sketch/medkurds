@@ -21,6 +21,7 @@ const medicalData = {
             dietTitle: "ڕێجیم و کێش",
             skincareTitle: "تەندروستی پێست",
             vaccinationsTitle: "خشتەی کوتان",
+            microbiologyTitle: "مایکرۆبایۆلۆجی و دەرمان",
             bloodTitle: "جۆرەکانی خوێن",
             dictionaryTitle: "فەرهەنگی زاراوەکان",
             maternalTitle: "دایکان و منداڵان",
@@ -36,6 +37,7 @@ const medicalData = {
             dictionaryTitle: "فەرهەنگی پزیشکی",
             bloodTypesTitle: "جۆرەکانی خوێن",
             directoryTitle: "ڕێبەری پزیشکان",
+            videosTitle: "ڤیدیۆ پزیشکییەکان",
             anatomyTitle: "بینەری ئەنادۆمی ٣D",
             anatomyHint: "بیگرە و ببات · زووم بکە · کلیک بکە بۆ زانیاری ئەندامەکان",
             anatomyExplode: "📤 بەشەکان جیا کراونەتەوە",
@@ -57,6 +59,8 @@ const medicalData = {
             desktopView: "لاپتۆپ",
             mobileView: "مۆبایل",
             installApp: "داگرتنی بەرنامە",
+            creatorName: "هێدی سەرتیپ حسێن",
+            creatorRole: "گەشەپێدەری ئەپڵیکەیشن",
             creator: "درووستکەر: هێدی سەرتیپ حسێن",
             userCountText: "بەکارھێنەران",
             tipTitle: "ئامۆژگاری ئەمڕۆ",
@@ -85,7 +89,6 @@ const medicalData = {
             next: "دواتر",
             back: "پێشتر",
             finish: "تەواو",
-            installApp: "داگرتنی بەرنامە (Add to Home Screen)",
             iphoneInstall: "بۆ ئایفۆن (Safari)",
             androidInstall: "بۆ ئەندرۆید (Chrome)",
             iphoneSteps: "١. دڵنیابەرەوە کە لەناو ئەپی (Safari) یت.<br>٢. لە خوارەوە کلیک لە دوگمەی (Share) بکە.<br>٣. کەمێک بڕۆ خوارەوە و کلیک لە (Add to Home Screen) بکە.<br>٤. لە سەرەوە لای ڕاست کلیک لە (Add) بکە.",
@@ -109,7 +112,8 @@ const medicalData = {
             aiConnError: "کێشەیەک لە پەیوەندی دروست بوو.",
             updatesTitle: "نوێکارییەکانی ئەپ",
             noUpdates: "هیچ نوێکارییەکی نوێ لەم هەفتەیەدا نییە.",
-            addedText: "زیادکراوە بۆ بەشی"
+            addedText: "زیادکراوە بۆ بەشی",
+            womensTitle: "نەخۆشییەکانی ئافرەتان"
         },
         en: {
             title: "MedKurds Luxury | Nursing & Pharmacy Platform",
@@ -131,9 +135,9 @@ const medicalData = {
             equipmentTitle: "Medical Equipment",
             nutritionTitle: "Healthy Nutrition",
             dietTitle: "Diet & Weight Loss",
-
             skincareTitle: "Skin Care",
             vaccinationsTitle: "Vaccination Schedule",
+            microbiologyTitle: "Microbiology & Antibiotics",
             bloodTitle: "Blood Types",
             dictionaryTitle: "Medical Dictionary",
             maternalTitle: "Mother & Child Health",
@@ -147,6 +151,7 @@ const medicalData = {
             signlanguageTitle: "Sign Language",
             bloodTypesTitle: "Blood Types",
             directoryTitle: "Medical Directory",
+            videosTitle: "Medical Videos",
             anatomyTitle: "3D Anatomy Viewer",
             anatomyHint: "Drag to rotate · Zoom in · Click for organ info",
             anatomyExplode: "📤 Parts Exploded",
@@ -167,11 +172,9 @@ const medicalData = {
             viewModeTitle: "View Mode",
             desktopView: "Desktop",
             mobileView: "Mobile",
-            installApp: "Install App (Add to Home Screen)",
-            iphoneInstall: "For iPhone (Safari)",
-            androidInstall: "For Android (Chrome)",
-            iphoneSteps: "1. Make sure you are using (Safari) browser.<br>2. Tap the (Share) button at the bottom.<br>3. Scroll down and tap (Add to Home Screen).<br>4. Tap (Add) in the top right corner.",
-            androidSteps: "1. Make sure you are using (Google Chrome) browser.<br>2. Tap the three dots menu in the top right.<br>3. Tap (Install app) or (Add to Home screen).<br>4. Tap (Install) or (Add).",
+            installApp: "Install App",
+            creatorName: "Hedi Sartip Hussein",
+            creatorRole: "Application Developer",
             creator: "Creator: Hedi Sartip Hussein",
             userCountText: "Active Users",
             tipTitle: "Daily Tip",
@@ -200,6 +203,10 @@ const medicalData = {
             back: "Back",
             finish: "Finish",
             gotIt: "I Understand",
+            iphoneInstall: "For iPhone (Safari)",
+            androidInstall: "For Android (Chrome)",
+            iphoneSteps: "1. Make sure you are using (Safari) browser.<br>2. Tap the (Share) button at the bottom.<br>3. Scroll down and tap (Add to Home Screen).<br>4. Tap (Add) in the top right corner.",
+            androidSteps: "1. Make sure you are using (Google Chrome) browser.<br>2. Tap the three dots menu in the top right.<br>3. Tap (Install app) or (Add to Home screen).<br>4. Tap (Install) or (Add).",
             introNursingTitle: "Nursing",
             introNursingDesc: "Nursing is a healthcare profession focused on the care of individuals, families, and communities. The primary goal is to maintain and restore health. Nurses play a key role in medical teams and are often the first point of contact for treatment and close care.",
             introPharmacyTitle: "Pharmacy",
@@ -218,7 +225,8 @@ const medicalData = {
             aiConnError: "A connection issue occurred.",
             updatesTitle: "App Updates",
             noUpdates: "No new updates this week.",
-            addedText: "added to"
+            addedText: "added to",
+            womensTitle: "Women's Diseases"
         },
         ar: {
             title: "ميد كورد لوكجري | منصة التمريض والصيدلة",
@@ -242,6 +250,7 @@ const medicalData = {
             dietTitle: "الرجيم وإنقاص الوزن",
             skincareTitle: "العناية بالبشرة",
             vaccinationsTitle: "جدول اللقاحات",
+            microbiologyTitle: "علم الأحياء الدقيقة",
             bloodTitle: "فصائل الدم",
             dictionaryTitle: "قاموس المصطلحات",
             maternalTitle: "الأم والطفل",
@@ -253,10 +262,9 @@ const medicalData = {
             diseasesTitle: "الأمراض الشائعة",
             occupationalTitle: "الصحة المهنية",
             signlanguageTitle: "لغة الإشارة",
-            maternalTitle: "صحة الأم والطفل",
-            dictionaryTitle: "قاموس طبي",
             bloodTypesTitle: "فصائل الدم",
             directoryTitle: "دليل الأطباء",
+            videosTitle: "فيديوهات طبية",
             anatomyTitle: "عارض التشريح 3D",
             anatomyHint: "اسحب للتدوير · قم بالتكبير · انقر لمعلومات العضو",
             anatomyExplode: "📤 الأجزاء مفصولة",
@@ -274,14 +282,12 @@ const medicalData = {
             designGroup: "التصميم واللغة",
             medicalGroup: "الأقسام الطبية",
             themeTitle: "السمات",
-            viewModeTitle: "النمط",
-            desktopView: "كمبيوتر",
-            mobileView: "موبايل",
-            installApp: "تثبيت التطبيق (Add to Home Screen)",
-            iphoneInstall: "للآيفون (Safari)",
-            androidInstall: "للأندرويد (Chrome)",
-            iphoneSteps: "١. تأكد من أنك تستخدم متصفح (Safari).<br>٢. اضغط على زر (Share) في الأسفل.<br>٣. مرر لأسفل واضغط على (Add to Home Screen).<br>٤. اضغط على (Add) في الزاوية العلوية اليمنى.",
-            androidSteps: "١. تأكد من أنك تستخدم متصفح (Google Chrome).<br>٢. اضغط على قائمة النقاط الثلاث في الأعلى.<br>٣. اضغط على (Install app) أو (Add to Home screen).<br>٤. اضغط على (Install) أو (Add).",
+            viewModeTitle: "طريقة العرض",
+            desktopView: "حاسوب",
+            mobileView: "هاتف",
+            installApp: "تحميل التطبيق",
+            creatorName: "هيدي سرتيب حسين",
+            creatorRole: "مطور تطبيقات",
             creator: "المطور: هێدی سەرتیپ حسێن",
             userCountText: "المستخدمين",
             tipTitle: "نصيحة اليوم",
@@ -328,7 +334,8 @@ const medicalData = {
             aiConnError: "حدثت مشكلة في الاتصال.",
             updatesTitle: "تحديثات التطبيق",
             noUpdates: "لا توجد تحديثات جديدة هذا الأسبوع.",
-            addedText: "تمت إضافته إلى قسم"
+            addedText: "تمت إضافته إلى قسم",
+            womensTitle: "أمراض النساء"
         }
     },
     drugs: [],
@@ -355,7 +362,10 @@ const medicalData = {
     occupational: [],
     signlanguage: [],
     pathology: [],
-    scenarios: []
+    scenarios: [],
+    videos: [],
+    microbiology: [],
+    womens: []
 };
 
 // Data Merging Logic - Executes immediately after modules are loaded
@@ -437,6 +447,16 @@ const medicalData = {
     if (typeof scenariosData !== 'undefined') {
         medicalData.scenarios = scenariosData.map(s => normalize(s, 'scenarios'));
     }
+
+    if (typeof videosData !== 'undefined') {
+        medicalData.videos = videosData.map(v => normalize(v, 'videos'));
+    }
+
+    if (typeof microbiologyData !== 'undefined') {
+        medicalData.microbiology = microbiologyData.map(m => normalize(m, 'microbiology'));
+    }
+
+    if (typeof womensData !== 'undefined') medicalData.womens = womensData.map(w => normalize(w, 'womens'));
 
     if (typeof bloodTypesData !== 'undefined') medicalData.bloodTypes = bloodTypesData.map(b => normalize(b, 'bloodTypes'));
 

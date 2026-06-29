@@ -17,6 +17,7 @@
     "copyfiles": "^2.4.1"
   },
   "dependencies": {
-    "@capacitor/local-notifications": "^8.2.0"
+    "@capacitor/local-notifications": "^8.2.0",
+    "firebase": "^12.15.0"
   }
 }
