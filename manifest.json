@@ -11,21 +11,21 @@
   "categories": ["medical", "education"],
   "icons": [
     {
-      "src": "img/medkurds-new-logo.jpg",
+      "src": "img/medkurds-logo-512.png",
       "sizes": "192x192",
-      "type": "image/jpeg",
+      "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "img/medkurds-new-logo.jpg",
+      "src": "img/medkurds-logo-512.png",
       "sizes": "512x512",
-      "type": "image/jpeg",
+      "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "img/medkurds-new-logo.jpg",
+      "src": "img/medkurds-logo-512.png",
       "sizes": "512x512",
-      "type": "image/jpeg",
+      "type": "image/png",
       "purpose": "maskable"
     }
   ]
